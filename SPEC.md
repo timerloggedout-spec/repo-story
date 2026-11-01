@@ -1,4 +1,4 @@
-# Repo+Story — Spec v1.1 (seed + Gemini Δ fold-in)
+# Repo+Story — Spec v1.2 (seed + Gemini Δ fold-in + §2 tidy)
 
 <!-- Derived 1:1 from CONCEPT.md (I1 of record). Anything beyond I1 is marked [OPEN]. -->
 <!-- Delphi Oracle improvement pass pending: receipts (ABSTAIN/ALLOW/ESCALATE) ⇒ Spec v2. -->
@@ -12,7 +12,7 @@ every reviewer and maintainer, every time.
 
 ## 2. Product
 
-A GitHub App that turns a repository's event-stream into a cited narrative:
+A GitHub Action + pre-push hook system that turns a repository's event-stream into a cited narrative:
 
 1. **Ingest** — commits × file mutations × authors (the Gource data plane, ¬ its animation).
 2. **Cluster** — group events into story units (by change coupling, file neighborhoods,
