@@ -55,6 +55,7 @@ jobs:
           BUILD_ISSUE: ${{ github.event.issue.number || inputs.issue_number }}
         with:
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          gemini_model: 'gemini-2.5-flash'
           prompt: |
             You are the builder for timerloggedout-spec/repo-story. Read SPEC.md
             (v2.1) and the build issue #${{ github.event.issue.number || inputs.issue_number }}
@@ -70,3 +71,9 @@ jobs:
             item is evidenced. Do not merge. Every narrative claim in generated
             stories must cite its source commit; unverified stories never
             publish (SPEC section 2.5).
+      - name: Surface builder failure on the build issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          gh issue comment "${{ github.event.issue.number || inputs.issue_number }}" --body "Build dispatch run ${{ github.run_id }} FAILED at the Gemini CLI builder step (see Actions run ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}). Recorded by build-dispatch error surfacing (optimizations-assurance fix, 2026-11-01)."
