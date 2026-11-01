@@ -1,4 +1,4 @@
-# Repo+Story — Spec v2 (oracle-folded)
+# Repo+Story — Spec v2.1 (oracle-folded + evaluator refinement tidy)
 
 <!-- v2 = v1.2 + Delphi Oracle pass fold (evaluator: D0 seat 7f59b235, kernel deterministic_oracle -->
 <!-- @delphi-oracle 393e1f4b; receipts in docs/ORACLE-PASS.md). Builder≠evaluator held. -->
@@ -33,7 +33,9 @@ narrative:
 ## 3. Clustering + blast radius (ΔB, ΔC)
 
 - **Clustering signals (pinned):** co-change coupling · file neighborhood · authorship ·
-  time window. Noise filter: lockfiles, linters, formatters excluded pre-cluster.
+  time window. **v0 rule (evaluator refinement):** same-PR + file-neighborhood +
+  time-window clustering ships first; coupling/authorship signals phase in with the
+  labeled-set eval (§8). Noise filter: lockfiles, linters, formatters excluded pre-cluster.
   Thresholds live in repo config (`story.config`) with shipped defaults — [OPEN: default
   values tuned on the labeled PR set, §8].
 - **Blast-radius metric:** coupling(a,b) = shared_commit_count over the history window,
@@ -82,6 +84,9 @@ Two named scopes, never conflated:
 - Cluster quality: evaluated on a labeled PR set; precision/recall recorded, not asserted.
 - Runtime budget: Action completes within the configured per-PR budget (§6) or falls back.
 - **Scale test:** extraction + verify run on a large-history repo fixture within budget.
+  Scale-bound evidence (evaluator): full-history PyDriller mining breaks at monorepo
+  scale (≈11.7k tree entries, ~100 commits/2.5h churn — fleet recon of record) ⇒ the
+  `history_index` refresh (§4) is incremental, never a full re-mine per PR.
 - **Determinism:** §6 criterion demonstrated on the labeled set.
 
 ## 9. Competition surface — GATED (R11 ESCALATE, held)
