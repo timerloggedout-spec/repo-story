@@ -1,0 +1,72 @@
+name: '🔀 Build Dispatch (Gemini build arm)'
+
+# Machinery installed by the Swarm lane (execution lead) for the Repo-Story
+# fleet swarm build via Scout. Provider of record: Gemini (Provider Index
+# build arm gemini.build_dispatch; Jules excluded for this entry by owner
+# ruling 2026-11-01; DeepSeek arm = session/cookies route, not cloud-fit).
+# Requires: secrets.GEMINI_API_KEY on this repo (provisioning item, names-only).
+# PRs are authored by the Termux Fleet RepoStory App token (SEC-03
+# mint-before-checkout) so downstream workflows cascade.
+
+on:
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Build issue number'
+        required: true
+
+permissions: {}
+
+concurrency:
+  group: build-dispatch-${{ github.event.issue.number || inputs.issue_number }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (startsWith(github.event.comment.body, '@gemini-cli /build') &&
+       contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association))
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Mint RepoStory App token (SEC-03)
+        id: app-token
+        uses: actions/create-github-app-token@b60ed23e06e1e229cd0384bf542ad2781a8df21e # v3
+        with:
+          app-id: ${{ vars.TERMUX_FLEET_REPOSTORY_APP_ID }}
+          private-key: ${{ secrets.TERMUX_FLEET_REPOSTORY_PRIVATE_KEY }}
+          repositories: ${{ github.event.repository.name }}
+      - name: Checkout (app token; mint-before-checkout)
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          fetch-depth: 0
+      - name: Run Gemini CLI builder
+        uses: google-github-actions/run-gemini-cli@f77273f4c914e4bf38440cf36a0369cb64a37489 # v0.1.22
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GEMINI_CLI_TRUST_WORKSPACE: 'true'
+          BUILD_ISSUE: ${{ github.event.issue.number || inputs.issue_number }}
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          prompt: |
+            You are the builder for timerloggedout-spec/repo-story. Read SPEC.md
+            (v2.1) and the build issue #${{ github.event.issue.number || inputs.issue_number }}
+            in full, then implement the v0 scope exactly as the issue specifies:
+            pr_range pipeline (extract -> cluster -> narrate with deterministic
+            fallback -> citation-verify hard gate -> sticky publish), .story/
+            orphan-ref persistence (M1), story.config defaults, the product
+            GitHub Action, and tests demonstrating the acceptance criteria in
+            SPEC section 8 that are testable in CI (citation resolution 100%,
+            determinism of story structure for a fixed range). Work on a branch
+            named build/v0-pr-range and open a pull request against main with
+            `gh pr create`, describing what was built and how each acceptance
+            item is evidenced. Do not merge. Every narrative claim in generated
+            stories must cite its source commit; unverified stories never
+            publish (SPEC section 2.5).
