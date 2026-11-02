@@ -6,7 +6,7 @@ warnings, noise filter.
 """
 import unittest
 
-from repo_story import blast, cluster, narrate, verify
+from repo_story import blast, cluster, narrate, verify, publish
 from repo_story.config import load_config
 from repo_story.extract import _REC, _SEP, _parse_log
 
@@ -103,6 +103,24 @@ class TestPipeline(unittest.TestCase):
         self.assertEqual(commits[0]["files"][0],
                          {"path": "src/auth/login.py", "status": "M"})
         self.assertEqual(commits[1]["author"], "Bo")
+
+    def test_config_loading_and_overrides(self):
+        cfg = load_config("blast_tau = 0.8\nnoise_patterns = .foo,.bar\n")
+        self.assertEqual(cfg["blast_tau"], 0.8)
+        self.assertEqual(cfg["noise_patterns"], [".foo", ".bar"])
+
+    def test_story_record_and_claims(self):
+        p = payload()
+        units = cluster.cluster(p["commits"], CFG)
+        warns = []
+        narration = narrate.narrate(p, units, warns, CFG)
+        receipt = verify.verify(narration["text"], p["commits"])
+        header = {"pr_number": 42, "pr_range": "base..head", "head_sha": "b"*40, "generated_at": "now"}
+        rec = publish.story_record(p, units, warns, narration, receipt, header)
+        self.assertEqual(rec["schema"], "repo-story/v0")
+        self.assertEqual(rec["header"]["pr_number"], 42)
+        claims = verify.find_claims(narration["text"])
+        self.assertGreater(len(claims), 0)
 
 
 if __name__ == "__main__":
