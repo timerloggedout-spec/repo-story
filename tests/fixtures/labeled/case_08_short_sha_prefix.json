@@ -1,0 +1,21 @@
+{
+  "id": 8,
+  "category": "short_sha_prefix",
+  "description": "Valid citation using 7-character unique short SHA prefix",
+  "story_text": "Added feature in [src/features/core.py](789abcd).",
+  "commits": [
+    {
+      "sha": "789abcd567890abcdef1234567890abcdef12345",
+      "author": "Charlie",
+      "ts": 1700007200,
+      "message": "feature core",
+      "files": [{"path": "src/features/core.py", "status": "A"}]
+    }
+  ],
+  "expected": {
+    "ok": true,
+    "total": 1,
+    "resolved": 1,
+    "supported": 1
+  }
+}

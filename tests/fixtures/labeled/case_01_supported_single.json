@@ -1,0 +1,21 @@
+{
+  "id": 1,
+  "category": "supported_claim",
+  "description": "Single valid commit touching cited file with correct markdown link",
+  "story_text": "Updated authentication module in [src/auth/login.py](abc1234).",
+  "commits": [
+    {
+      "sha": "abc1234567890abcdef1234567890abcdef12345",
+      "author": "Ana",
+      "ts": 1700000000,
+      "message": "update auth module",
+      "files": [{"path": "src/auth/login.py", "status": "M"}]
+    }
+  ],
+  "expected": {
+    "ok": true,
+    "total": 1,
+    "resolved": 1,
+    "supported": 1
+  }
+}

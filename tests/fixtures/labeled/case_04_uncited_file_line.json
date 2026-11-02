@@ -1,0 +1,21 @@
+{
+  "id": 4,
+  "category": "uncited_file_line",
+  "description": "Story text mentions file modification without a markdown citation link",
+  "story_text": "Changed src/auth/session.py without a citation link.",
+  "commits": [
+    {
+      "sha": "abc1234567890abcdef1234567890abcdef12345",
+      "author": "Ana",
+      "ts": 1700000000,
+      "message": "session update",
+      "files": [{"path": "src/auth/session.py", "status": "M"}]
+    }
+  ],
+  "expected": {
+    "ok": false,
+    "total": 0,
+    "resolved": 0,
+    "supported": 0
+  }
+}

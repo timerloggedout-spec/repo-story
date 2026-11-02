@@ -1,0 +1,21 @@
+{
+  "id": 5,
+  "category": "range_rewrite",
+  "description": "Range-rewrite re-verify case: re-running verify on new range commits with zero carried-over verdicts",
+  "story_text": "Updated router in [src/web/router.py](def5678).",
+  "commits": [
+    {
+      "sha": "def5678567890abcdef1234567890abcdef12345",
+      "author": "Bo",
+      "ts": 1700003600,
+      "message": "update router",
+      "files": [{"path": "src/web/router.py", "status": "M"}]
+    }
+  ],
+  "expected": {
+    "ok": true,
+    "total": 1,
+    "resolved": 1,
+    "supported": 1
+  }
+}
