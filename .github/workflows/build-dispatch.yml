@@ -16,6 +16,10 @@ on:
       issue_number:
         description: 'Build issue number'
         required: true
+      branch:
+        description: 'Target branch for the build (default: the v0 branch)'
+        required: false
+        default: 'build/v0-pr-range'
 
 permissions: {}
 
@@ -59,18 +63,17 @@ jobs:
           prompt: |
             You are the builder for timerloggedout-spec/repo-story. Read SPEC.md
             (v2.1) and the build issue #${{ github.event.issue.number || inputs.issue_number }}
-            in full, then implement the v0 scope exactly as the issue specifies:
-            pr_range pipeline (extract -> cluster -> narrate with deterministic
-            fallback -> citation-verify hard gate -> sticky publish), .story/
-            orphan-ref persistence (M1), story.config defaults, the product
-            GitHub Action, and tests demonstrating the acceptance criteria in
-            SPEC section 8 that are testable in CI (citation resolution 100%,
-            determinism of story structure for a fixed range). Work on a branch
-            named build/v0-pr-range and open a pull request against main with
-            `gh pr create`, describing what was built and how each acceptance
-            item is evidenced. Do not merge. Every narrative claim in generated
-            stories must cite its source commit; unverified stories never
-            publish (SPEC section 2.5).
+            in full, then implement exactly what THAT ISSUE specifies (its scope,
+            deliverables and acceptance criteria govern; the issue may be a v0
+            build or a later increment building on the merged v0). Work on the
+            branch named here: ${{ inputs.branch }} (for issue-comment dispatch, the
+            branch named in the issue body; fallback build/v0-pr-range) and open
+            a pull request against main with `gh pr create`, describing what was
+            built and how each acceptance item is evidenced. Do not merge. Every
+            narrative claim in generated stories must cite its source commit;
+            unverified stories never publish (SPEC section 2.5). If the work
+            already exists on main, say so in a comment on the issue instead of
+            exiting silently.
       - name: Surface builder failure on the build issue
         if: failure()
         env:
