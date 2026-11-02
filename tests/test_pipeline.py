@@ -104,6 +104,36 @@ class TestPipeline(unittest.TestCase):
                          {"path": "src/auth/login.py", "status": "M"})
         self.assertEqual(commits[1]["author"], "Bo")
 
+    def test_sampled_audit_success(self):
+        story = (
+            f"Changed [src/auth/login.py]({'a'*40}) and "
+            f"[src/auth/session.py]({'a'*40}) and "
+            f"[src/auth/routes.py]({'b'*40})."
+        )
+        res = verify.audit(story, FIXTURE_COMMITS, repo=".", cfg=CFG)
+        self.assertTrue(res["ok"])
+        self.assertGreaterEqual(res["sampled"], 1)
+        self.assertEqual(res["sampled"], res["supported"])
+
+    def test_sampled_audit_flags_unsupported_claim(self):
+        story = f"Changed [docs/readme.md]({'a'*40})."
+        res = verify.audit(story, FIXTURE_COMMITS, repo=".", cfg=CFG)
+        self.assertFalse(res["ok"])
+        self.assertEqual(res["supported"], 0)
+
+    def test_audit_runs_against_pr4_story_artifact(self):
+        pr4_story = "### Unit 1\n- [repo_story/__init__.py](4cb7362) (A)\n"
+        pr4_commits = [{
+            "sha": "4cb73622ccb05af9e721f4652fc44bb07b0d6fab",
+            "author": "bot",
+            "ts": 1793613458,
+            "message": "init",
+            "files": [{"path": "repo_story/__init__.py", "status": "A"}]
+        }]
+        res = verify.audit(pr4_story, pr4_commits, repo=".", cfg=CFG)
+        self.assertTrue(res["ok"])
+        self.assertGreaterEqual(res["sampled"], 1)
+
 
 if __name__ == "__main__":
     unittest.main()

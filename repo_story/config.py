@@ -24,6 +24,8 @@ DEFAULTS = {
     "llm_env_key": "REPO_STORY_LLM_API_KEY",
     # Noise filter (pre-cluster): path substrings excluded as story noise.
     "noise_patterns": "lock,.lock,.min.js,.map,__snapshots__,.snap",
+    "audit_sample_size": "5",
+    "audit_seed": "42",
 }
 
 
@@ -40,6 +42,8 @@ def load_config(text: str | None) -> dict:
     cfg["cluster_window_hours"] = float(cfg["cluster_window_hours"])
     cfg["history_window_commits"] = int(cfg["history_window_commits"])
     cfg["narrate_budget_seconds"] = float(cfg["narrate_budget_seconds"])
+    cfg["audit_sample_size"] = int(cfg["audit_sample_size"])
+    cfg["audit_seed"] = int(cfg["audit_seed"])
     cfg["noise_patterns"] = [p for p in str(cfg["noise_patterns"]).split(",") if p]
     return cfg
 

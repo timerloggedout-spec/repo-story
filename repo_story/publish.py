@@ -15,6 +15,9 @@ MARKER = "<!-- repo-story:sticky -->"
 
 
 def render_comment(story_text: str, header: dict, receipt: dict) -> str:
+    v = receipt['verify']
+    audit_info = v.get('audit', {})
+    audit_part = f" · audit sampled {audit_info.get('sampled', 0)}, supported {audit_info.get('supported', 0)}" if 'audit' in v else ""
     body = [
         MARKER,
         f"## Repo-Story — PR {header['pr_number']}",
@@ -26,10 +29,10 @@ def render_comment(story_text: str, header: dict, receipt: dict) -> str:
         "",
         "---",
         f"self-receipt: engine {receipt['engine']} {receipt['version']} "
-        f"({receipt['mode']}) · citations {receipt['verify']['resolved']}/"
-        f"{receipt['verify']['total']} resolved, "
-        f"{receipt['verify']['supported']}/{receipt['verify']['total']} "
-        f"supported · verify ok: {receipt['verify']['ok']}",
+        f"({receipt['mode']}) · citations {v['resolved']}/"
+        f"{v['total']} resolved, "
+        f"{v['supported']}/{v['total']} "
+        f"supported{audit_part} · verify ok: {v['ok']}",
     ]
     return "\n".join(body) + "\n"
 
