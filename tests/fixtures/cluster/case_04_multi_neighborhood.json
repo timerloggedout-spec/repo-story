@@ -1,0 +1,37 @@
+{
+  "id": 4,
+  "category": "multi_neighborhood",
+  "config": {
+    "cluster_window_hours": 24
+  },
+  "commits": [
+    {
+      "sha": "1111111111111111111111111111111111111111",
+      "author": "Dave",
+      "ts": 1700000000,
+      "message": "ui change",
+      "files": [{"path": "src/ui/app.py", "status": "M"}]
+    },
+    {
+      "sha": "2222222222222222222222222222222222222222",
+      "author": "Dave",
+      "ts": 1700001000,
+      "message": "bridge ui and api",
+      "files": [{"path": "src/ui/bridge.py", "status": "M"}, {"path": "src/api/client.py", "status": "M"}]
+    },
+    {
+      "sha": "3333333333333333333333333333333333333333",
+      "author": "Dave",
+      "ts": 1700002000,
+      "message": "api server",
+      "files": [{"path": "src/api/server.py", "status": "M"}]
+    }
+  ],
+  "expected_units": [
+    [
+      "1111111111111111111111111111111111111111",
+      "2222222222222222222222222222222222222222",
+      "3333333333333333333333333333333333333333"
+    ]
+  ]
+}
