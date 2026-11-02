@@ -1,0 +1,75 @@
+name: Repo-Story
+
+# Product Action (SPEC section 2.6 / build issue item 8): on every PR,
+# extract the pr_range, build the story, verify citations (hard gate),
+# publish exactly one sticky comment, and persist .story/PR-{id}.json
+# on the orphan `story-data` ref (M1). The sticky comment is authored by
+# the Termux Fleet RepoStory App (SEC-03 mint-before-checkout).
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions: {}
+
+concurrency:
+  group: repo-story-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  story:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Mint RepoStory App token (SEC-03)
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.TERMUX_FLEET_REPOSTORY_APP_ID }}
+          private-key: ${{ secrets.TERMUX_FLEET_REPOSTORY_PRIVATE_KEY }}
+          repositories: ${{ github.event.repository.name }}
+
+      - name: Checkout PR with history
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Build + verify + publish story
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          python3 -m repo_story.cli --repo . \
+            --base "$BASE_SHA" --head "$HEAD_SHA" \
+            --pr "$PR_NUMBER" --repo-slug "${{ github.repository }}" \
+            --out story.json --publish
+
+      - name: Persist .story/PR-{id}.json to orphan ref (M1)
+        if: always()
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          test -f story.json || exit 0
+          git config user.name "termux-fleet-repostory[bot]"
+          git config user.email "termux-fleet-repostory[bot]@users.noreply.github.com"
+          git fetch origin story-data || true
+          WT=$(mktemp -d)
+          if git show-ref --verify --quiet refs/remotes/origin/story-data; then
+            git worktree add "$WT" origin/story-data
+          else
+            git worktree add --orphan -b story-data "$WT"
+          fi
+          mkdir -p "$WT/.story"
+          cp story.json "$WT/.story/PR-${PR_NUMBER}.json"
+          cd "$WT"
+          git add ".story/PR-${PR_NUMBER}.json"
+          git commit -m "story: PR ${PR_NUMBER} record" || exit 0
+          git push origin story-data
