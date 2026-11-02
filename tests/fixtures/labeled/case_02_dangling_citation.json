@@ -1,0 +1,21 @@
+{
+  "id": 2,
+  "category": "dangling_citation",
+  "description": "Citation pointing to non-existent commit SHA",
+  "story_text": "Modified config in [src/config.py](0000000).",
+  "commits": [
+    {
+      "sha": "abc1234567890abcdef1234567890abcdef12345",
+      "author": "Ana",
+      "ts": 1700000000,
+      "message": "update auth module",
+      "files": [{"path": "src/auth/login.py", "status": "M"}]
+    }
+  ],
+  "expected": {
+    "ok": false,
+    "total": 1,
+    "resolved": 0,
+    "supported": 0
+  }
+}

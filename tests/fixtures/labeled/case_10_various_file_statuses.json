@@ -1,0 +1,25 @@
+{
+  "id": 10,
+  "category": "various_file_statuses",
+  "description": "Commits with various file status changes (added, modified, deleted) correctly cited",
+  "story_text": "Added [src/new.py](1234567), modified [src/mod.py](1234567), deleted [src/old.py](1234567).",
+  "commits": [
+    {
+      "sha": "1234567567890abcdef1234567890abcdef12345",
+      "author": "Ana",
+      "ts": 1700000000,
+      "message": "various",
+      "files": [
+        {"path": "src/new.py", "status": "A"},
+        {"path": "src/mod.py", "status": "M"},
+        {"path": "src/old.py", "status": "D"}
+      ]
+    }
+  ],
+  "expected": {
+    "ok": true,
+    "total": 3,
+    "resolved": 3,
+    "supported": 3
+  }
+}

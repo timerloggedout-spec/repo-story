@@ -1,0 +1,28 @@
+{
+  "id": 7,
+  "category": "multiple_supported",
+  "description": "Multiple valid claims supported across multiple commits",
+  "story_text": "Unit 1: [src/auth/login.py](abc1234). Unit 2: [src/web/app.py](def5678).",
+  "commits": [
+    {
+      "sha": "abc1234567890abcdef1234567890abcdef12345",
+      "author": "Ana",
+      "ts": 1700000000,
+      "message": "login",
+      "files": [{"path": "src/auth/login.py", "status": "M"}]
+    },
+    {
+      "sha": "def5678567890abcdef1234567890abcdef12345",
+      "author": "Bo",
+      "ts": 1700003600,
+      "message": "app",
+      "files": [{"path": "src/web/app.py", "status": "M"}]
+    }
+  ],
+  "expected": {
+    "ok": true,
+    "total": 2,
+    "resolved": 2,
+    "supported": 2
+  }
+}

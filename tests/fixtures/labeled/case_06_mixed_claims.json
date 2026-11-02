@@ -1,0 +1,21 @@
+{
+  "id": 6,
+  "category": "mixed_claims",
+  "description": "Story containing one valid supported claim and one dangling citation",
+  "story_text": "Fixed login in [src/auth/login.py](abc1234) and missing file in [src/missing.py](9999999).",
+  "commits": [
+    {
+      "sha": "abc1234567890abcdef1234567890abcdef12345",
+      "author": "Ana",
+      "ts": 1700000000,
+      "message": "fix login",
+      "files": [{"path": "src/auth/login.py", "status": "M"}]
+    }
+  ],
+  "expected": {
+    "ok": false,
+    "total": 2,
+    "resolved": 1,
+    "supported": 1
+  }
+}

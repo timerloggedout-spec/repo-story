@@ -1,0 +1,21 @@
+{
+  "id": 3,
+  "category": "wrong_file_claim",
+  "description": "Real commit cited but file name in claim text is not touched by the commit (gate-found failure mode)",
+  "story_text": "Refactored database layer in [src/db/client.py](abc1234).",
+  "commits": [
+    {
+      "sha": "abc1234567890abcdef1234567890abcdef12345",
+      "author": "Ana",
+      "ts": 1700000000,
+      "message": "update auth module",
+      "files": [{"path": "src/auth/login.py", "status": "M"}]
+    }
+  ],
+  "expected": {
+    "ok": false,
+    "total": 1,
+    "resolved": 1,
+    "supported": 0
+  }
+}

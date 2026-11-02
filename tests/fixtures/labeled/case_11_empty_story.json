@@ -1,0 +1,21 @@
+{
+  "id": 11,
+  "category": "empty_story",
+  "description": "Story text with no citations or claims",
+  "story_text": "No claims made in this text.",
+  "commits": [
+    {
+      "sha": "abc1234567890abcdef1234567890abcdef12345",
+      "author": "Ana",
+      "ts": 1700000000,
+      "message": "noop",
+      "files": [{"path": "src/main.py", "status": "M"}]
+    }
+  ],
+  "expected": {
+    "ok": false,
+    "total": 0,
+    "resolved": 0,
+    "supported": 0
+  }
+}

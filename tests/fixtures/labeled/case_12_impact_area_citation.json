@@ -1,0 +1,21 @@
+{
+  "id": 12,
+  "category": "impact_area_citation",
+  "description": "Impact areas / coupled absent warning section with valid citation",
+  "story_text": "### Impact areas — coupled files absent\n- [src/auth/login.py](abc1234) changed; historically coupled and absent: src/auth/tokens.py (coupling 0.8)",
+  "commits": [
+    {
+      "sha": "abc1234567890abcdef1234567890abcdef12345",
+      "author": "Ana",
+      "ts": 1700000000,
+      "message": "login change",
+      "files": [{"path": "src/auth/login.py", "status": "M"}]
+    }
+  ],
+  "expected": {
+    "ok": true,
+    "total": 1,
+    "resolved": 1,
+    "supported": 1
+  }
+}

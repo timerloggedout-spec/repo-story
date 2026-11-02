@@ -1,0 +1,28 @@
+{
+  "id": 9,
+  "category": "ambiguous_short_sha",
+  "description": "Citation using short SHA prefix that matches multiple commits (ambiguous -> unresolved)",
+  "story_text": "Updated common module in [src/common.py](1111111).",
+  "commits": [
+    {
+      "sha": "1111111567890abcdef1234567890abcdef12345",
+      "author": "Ana",
+      "ts": 1700000000,
+      "message": "first",
+      "files": [{"path": "src/common.py", "status": "M"}]
+    },
+    {
+      "sha": "11111118901234567890abcdef1234567890abc",
+      "author": "Bo",
+      "ts": 1700001000,
+      "message": "second",
+      "files": [{"path": "src/common.py", "status": "M"}]
+    }
+  ],
+  "expected": {
+    "ok": false,
+    "total": 1,
+    "resolved": 0,
+    "supported": 0
+  }
+}
