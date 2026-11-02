@@ -1,0 +1,27 @@
+{
+  "id": 5,
+  "category": "distinct_neighborhoods",
+  "config": {
+    "cluster_window_hours": 24
+  },
+  "commits": [
+    {
+      "sha": "1111111111111111111111111111111111111111",
+      "author": "Eve",
+      "ts": 1700000000,
+      "message": "alpha work",
+      "files": [{"path": "src/alpha/foo.py", "status": "M"}]
+    },
+    {
+      "sha": "2222222222222222222222222222222222222222",
+      "author": "Eve",
+      "ts": 1700000000,
+      "message": "beta work",
+      "files": [{"path": "src/beta/bar.py", "status": "M"}]
+    }
+  ],
+  "expected_units": [
+    ["1111111111111111111111111111111111111111"],
+    ["2222222222222222222222222222222222222222"]
+  ]
+}

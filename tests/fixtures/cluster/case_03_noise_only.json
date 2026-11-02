@@ -1,0 +1,27 @@
+{
+  "id": 3,
+  "category": "noise_only",
+  "config": {
+    "cluster_window_hours": 24,
+    "noise_patterns": ["package-lock.json"]
+  },
+  "commits": [
+    {
+      "sha": "1111111111111111111111111111111111111111",
+      "author": "Bot",
+      "ts": 1700000000,
+      "message": "bump lockfile",
+      "files": [{"path": "package-lock.json", "status": "M"}]
+    },
+    {
+      "sha": "2222222222222222222222222222222222222222",
+      "author": "Charlie",
+      "ts": 1700001000,
+      "message": "core update",
+      "files": [{"path": "src/core/main.py", "status": "M"}]
+    }
+  ],
+  "expected_units": [
+    ["2222222222222222222222222222222222222222"]
+  ]
+}

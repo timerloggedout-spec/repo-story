@@ -1,0 +1,27 @@
+{
+  "id": 2,
+  "category": "window_boundary_split",
+  "config": {
+    "cluster_window_hours": 24
+  },
+  "commits": [
+    {
+      "sha": "1111111111111111111111111111111111111111",
+      "author": "Bob",
+      "ts": 1700000000,
+      "message": "initial api",
+      "files": [{"path": "src/api/users.py", "status": "A"}]
+    },
+    {
+      "sha": "2222222222222222222222222222222222222222",
+      "author": "Bob",
+      "ts": 1700100000,
+      "message": "later api fix (27.7 hours later)",
+      "files": [{"path": "src/api/users.py", "status": "M"}]
+    }
+  ],
+  "expected_units": [
+    ["1111111111111111111111111111111111111111"],
+    ["2222222222222222222222222222222222222222"]
+  ]
+}
