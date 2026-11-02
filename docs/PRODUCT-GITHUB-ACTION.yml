@@ -1,0 +1,48 @@
+# Product GitHub Action: Repo+Story PR Narrative & Verification
+# Place this file in .github/workflows/repo-story.yml in repositories with workflow write permissions.
+
+name: '📚 Repo+Story (PR Narrative & Verification)'
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: read
+
+jobs:
+  story:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pydriller requests click PyYAML pytest
+
+      - name: Run verification test suite
+        run: |
+          export PYTHONPATH=.
+          pytest -v
+
+      - name: Run Repo+Story PR Pipeline
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          export PYTHONPATH=.
+          python3 -m repo_story.cli run-pr \
+            --pr-number ${{ github.event.pull_request.number }} \
+            --from-commit ${{ github.event.pull_request.base.sha }} \
+            --to-commit ${{ github.event.pull_request.head.sha }}
