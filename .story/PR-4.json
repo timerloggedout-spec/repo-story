@@ -1,0 +1,145 @@
+{
+ "blast_warnings": [],
+ "engine": {
+  "mode": "fallback",
+  "name": "repo-story",
+  "version": "0.1.0"
+ },
+ "header": {
+  "generated_at": "2026-11-02T10:02:50Z",
+  "head_sha": "b5be05f290260a7acdd60f6c58a0511b66a06d05",
+  "pr_number": 4,
+  "pr_range": "a9f03d68e7d62e2f496e176e1f70256a2e3663d7..b5be05f290260a7acdd60f6c58a0511b66a06d05"
+ },
+ "pr_files": [
+  ".github/workflows/repo-story.yml",
+  "repo_story/__init__.py",
+  "repo_story/blast.py",
+  "repo_story/cli.py",
+  "repo_story/cluster.py",
+  "repo_story/config.py",
+  "repo_story/extract.py",
+  "repo_story/narrate.py",
+  "repo_story/publish.py",
+  "repo_story/verify.py",
+  "story.config",
+  "tests/test_pipeline.py"
+ ],
+ "schema": "repo-story/v0",
+ "story": "### Story unit 1: repo_story, story.config, tests\n- build(repo-story): v0 pr_range pipeline \u2014 extract/cluster/blast/narrate/verify/publish + tests \u2014 termux-fleet-repostory[bot]\n  - [repo_story/__init__.py](4cb7362) (A)\n  - [repo_story/blast.py](4cb7362) (A)\n  - [repo_story/cli.py](4cb7362) (A)\n  - [repo_story/cluster.py](4cb7362) (A)\n  - [repo_story/config.py](4cb7362) (A)\n  - [repo_story/extract.py](4cb7362) (A)\n  - [repo_story/narrate.py](4cb7362) (A)\n  - [repo_story/publish.py](4cb7362) (A)\n  - [repo_story/verify.py](4cb7362) (A)\n  - [story.config](4cb7362) (A)\n  - [tests/test_pipeline.py](4cb7362) (A)\n\n### Story unit 2: .github/workflows\n- build(repo-story): product Action workflow (RepoStory App sticky publish + .story/ orphan persistence) \u2014 Founders' are 'found' to implement.\n  - [.github/workflows/repo-story.yml](b5be05f) (A)\n",
+ "units": [
+  {
+   "authors": [
+    "termux-fleet-repostory[bot]"
+   ],
+   "commits": [
+    {
+     "author": "termux-fleet-repostory[bot]",
+     "files": [
+      {
+       "path": "repo_story/__init__.py",
+       "status": "A"
+      },
+      {
+       "path": "repo_story/blast.py",
+       "status": "A"
+      },
+      {
+       "path": "repo_story/cli.py",
+       "status": "A"
+      },
+      {
+       "path": "repo_story/cluster.py",
+       "status": "A"
+      },
+      {
+       "path": "repo_story/config.py",
+       "status": "A"
+      },
+      {
+       "path": "repo_story/extract.py",
+       "status": "A"
+      },
+      {
+       "path": "repo_story/narrate.py",
+       "status": "A"
+      },
+      {
+       "path": "repo_story/publish.py",
+       "status": "A"
+      },
+      {
+       "path": "repo_story/verify.py",
+       "status": "A"
+      },
+      {
+       "path": "story.config",
+       "status": "A"
+      },
+      {
+       "path": "tests/test_pipeline.py",
+       "status": "A"
+      }
+     ],
+     "message": "build(repo-story): v0 pr_range pipeline \u2014 extract/cluster/blast/narrate/verify/publish + tests",
+     "sha": "4cb73622ccb05af9e721f4652fc44bb07b0d6fab",
+     "ts": 1793613458
+    }
+   ],
+   "files": [
+    "repo_story/__init__.py",
+    "repo_story/blast.py",
+    "repo_story/cli.py",
+    "repo_story/cluster.py",
+    "repo_story/config.py",
+    "repo_story/extract.py",
+    "repo_story/narrate.py",
+    "repo_story/publish.py",
+    "repo_story/verify.py",
+    "story.config",
+    "tests/test_pipeline.py"
+   ],
+   "id": 0,
+   "last_ts": 1793613458,
+   "neighborhoods": [
+    "repo_story",
+    "story.config",
+    "tests"
+   ]
+  },
+  {
+   "authors": [
+    "Founders' are 'found' to implement."
+   ],
+   "commits": [
+    {
+     "author": "Founders' are 'found' to implement.",
+     "files": [
+      {
+       "path": ".github/workflows/repo-story.yml",
+       "status": "A"
+      }
+     ],
+     "message": "build(repo-story): product Action workflow (RepoStory App sticky publish + .story/ orphan persistence)",
+     "sha": "b5be05f290260a7acdd60f6c58a0511b66a06d05",
+     "ts": 1793613464
+    }
+   ],
+   "files": [
+    ".github/workflows/repo-story.yml"
+   ],
+   "id": 1,
+   "last_ts": 1793613464,
+   "neighborhoods": [
+    ".github/workflows"
+   ]
+  }
+ ],
+ "verify": {
+  "failures": [],
+  "ok": true,
+  "resolved": 12,
+  "supported": 12,
+  "total": 12
+ }
+}
