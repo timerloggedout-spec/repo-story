@@ -9,7 +9,7 @@ For all pairs of commits (c_i, c_j) with i < j across evaluated commits in the f
 - TP (True Positive): pair is in the same unit in both ground-truth and prediction.
 - FP (False Positive): pair is in the same unit in prediction, but different units in ground-truth.
 - TN (True Negative): pair is in different units in both ground-truth and prediction.
-- FN (False Negative): pair is in different units in ground-truth, but same unit in prediction.
+- FN (False Negative): pair is in the same unit in ground-truth, but different units in prediction.
 """
 from __future__ import annotations
 
